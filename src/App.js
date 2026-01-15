@@ -62,14 +62,13 @@ import {
 
 // --- Konfigurasi Firebase ---
 const firebaseConfig = {
-  apiKey: "AIzaSyDxnTv7_L3T1-x-_BtJwJftLszmMzM8-Y0",
-  authDomain: "sinergiguru19.firebaseapp.com",
-  projectId: "sinergiguru19",
-  storageBucket: "sinergiguru19.firebasestorage.app",
-  messagingSenderId: "897127062626",
-  appId: "1:897127062626:web:932b2cdfc5f363ccbfc53b",
-  measurementId: "G-BZ05M1WPSR"
-};
+  apiKey: "temporary",
+  authDomain: "temporary",
+  projectId: "temporary",
+  storageBucket: "temporary",
+  messagingSenderId: "temporary",
+  appId: "temporary",
+ };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -919,5 +918,6 @@ const PrintTile = ({ title, icon, onClick, color }) => (
     <div className={`w-full bg-${color}-600 text-white font-black py-5 px-10 rounded-2xl shadow-2xl shadow-${color}-100 active:scale-95 transition-all flex items-center justify-center gap-3 z-10`}><Printer size={20}/> CETAK SEKARANG</div>
   </button>
 );
+
 
 export default App;
