@@ -60,6 +60,9 @@ import {
   where
 } from 'firebase/firestore';
 
+
+const __app_id = 'sinergi-guru-app'; 
+const __initial_auth_token = null;
 // --- Konfigurasi Firebase ---
 const firebaseConfig = {
   apiKey: "AIzaSyBAbD8GIT7daO66eTlv2D4rnYG0rk-0NY8",
@@ -80,6 +83,8 @@ const GRADE_TYPES = ['Formatif', 'Sumatif', 'Sikap'];
 const EXTRA_DUTIES = ['Wakil Kepala Madrasah', 'Kepala Perpustakaan', 'Kepala Laboratorium', 'Wali Kelas', 'Pembina Ekskul', 'Tugas Piket', 'Rapat/Workshop', 'Lainnya'];
 
 const App = () => {
+  const recordAttendance = () => {};
+const addGrade = () => {};
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -921,5 +926,6 @@ const PrintTile = ({ title, icon, onClick, color }) => (
 
 
 export default App;
+
 
 
