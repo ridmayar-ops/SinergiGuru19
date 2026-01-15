@@ -30,6 +30,82 @@ return (
   <div style={styles.container}>
     <div style={styles.header}>
       <h2>Halo, Bapak/Ibu Guru</h2>
+  return (
+  <div style={styles.container}>
+    {!user ? (
+      /* Form Login Anda (tetap seperti sebelumnya) */
+      <div style={{ textAlign: 'center' }}>
+        <h2>Login Sinergi Guru</h2>
+        {/* ... isi form login ... */}
+      </div>
+    ) : (
+      /* --- JIKA SUDAH LOGIN --- */
+      <div>
+        <div style={styles.header}>
+          <h2>Dashboard Guru</h2>
+          <p>{user.email}</p>
+        </div>
+
+        {/* LOGIKA SAKLAR HALAMAN */}
+        {view === 'dashboard' ? (
+          /* TAMPILAN 1: MENU UTAMA */
+          <div style={styles.cardGrid}>
+            <div style={styles.card} onClick={() => setView('absen')}>
+              <span style={styles.icon}>📋</span>
+              <span style={styles.label}>Absen Siswa</span>
+            </div>
+            <div style={styles.card} onClick={() => alert("Fitur segera hadir!")}>
+              <span style={styles.icon}>📊</span>
+              <span style={styles.label}>Input Nilai</span>
+            </div>
+            {/* ... tambahkan kartu lainnya di sini ... */}
+          </div>
+        ) : view === 'absen' ? (
+          /* TAMPILAN 2: FORM INPUT ABSENSI */
+          <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '15px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+            <button onClick={() => setView('dashboard')} style={{ marginBottom: '15px', border: 'none', background: 'none', color: '#3498db', cursor: 'pointer' }}>
+              ← Kembali ke Menu
+            </button>
+            <h3 style={{ marginBottom: '20px' }}>Input Kehadiran Siswa</h3>
+            
+            <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Nama Siswa:</label>
+            <input 
+              type="text" 
+              placeholder="Contoh: Budi Santoso" 
+              value={namaSiswa}
+              onChange={(e) => setNamaSiswa(e.target.value)}
+              style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #ddd', boxSizing: 'border-box' }}
+            />
+
+            <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Status:</label>
+            <select 
+              value={statusAbsen} 
+              onChange={(e) => setStatusAbsen(e.target.value)}
+              style={{ width: '100%', padding: '12px', marginBottom: '20px', borderRadius: '8px', border: '1px solid #ddd' }}
+            >
+              <option value="Hadir">✅ Hadir</option>
+              <option value="Izin">✉️ Izin</option>
+              <option value="Sakit">🤒 Sakit</option>
+              <option value="Alpa">❌ Alpa</option>
+            </select>
+
+            <button 
+              onClick={handleSaveAbsen} 
+              disabled={loading}
+              style={{ backgroundColor: '#2ecc71', color: '#fff', width: '100%', padding: '15px', border: 'none', borderRadius: '10px', fontWeight: 'bold', fontSize: '16px' }}
+            >
+              {loading ? 'Menyimpan...' : 'Simpan Absensi'}
+            </button>
+          </div>
+        ) : null}
+
+        <button style={styles.logoutBtn} onClick={() => supabase.auth.signOut()}>
+          Keluar
+        </button>
+      </div>
+    )}
+  </div>
+);
       <p style={{ fontSize: '14px', color: '#7f8c8d' }}>{user.email}</p>
     </div>
 
@@ -71,6 +147,47 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
+// --- STATE BARU UNTUK NAVIGASI & FORM ---
+  const [view, setView] = useState('dashboard'); // Menentukan halaman yang aktif: 'dashboard', 'absen', 'nilai', atau 'jadwal'
+  const [namaSiswa, setNamaSiswa] = useState(''); // Menyimpan input nama siswa
+  const [statusAbsen, setStatusAbsen] = useState('Hadir'); // Menyimpan pilihan status absen
+  const [catatan, setCatatan] = useState(''); // Menyimpan catatan tambahan (opsional)
+
+  const handleSaveAbsen = async () => {
+    // Validasi sederhana agar tidak ada data kosong yang masuk
+    if (!namaSiswa) return alert("Silakan masukkan nama siswa terlebih dahulu!");
+    
+    setLoading(true); // Aktifkan loading saat proses kirim data
+    
+    try {
+      const { data, error } = await supabase
+        .from('absensi') // Nama tabel yang kita buat di Supabase
+        .insert([
+          { 
+            nama_siswa: namaSiswa, 
+            status: statusAbsen, 
+            catatan: catatan,
+            guru_email: user.email, // Mencatat siapa guru yang mengisi
+            tanggal: new Date().toISOString().split('T')[0] // Mencatat tanggal otomatis
+          }
+        ]);
+
+      if (error) throw error;
+
+      alert("Berhasil! Data absensi " + namaSiswa + " telah tersimpan.");
+      
+      // Reset form dan kembali ke Dashboard utama
+      setNamaSiswa('');
+      setCatatan('');
+      setView('dashboard'); 
+      
+    } catch (error) {
+      alert("Gagal menyimpan ke database: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   // Fungsi Pendaftaran Akun (Sesuai kebutuhan Anda)
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -134,4 +251,5 @@ function App() {
 }
 
 export default App;
+
 
