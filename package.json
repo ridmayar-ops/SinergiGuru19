@@ -6,6 +6,9 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "@google/generative-ai": "^0.1.0"
+    "firebase": "^10.0.0",
+  "lucide-react": "^0.263.1",
+  "recharts": "^2.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -13,4 +16,3 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   }
-}
