@@ -62,7 +62,7 @@ import {
 
 // --- Konfigurasi Firebase ---
 const firebaseConfig = {
-  apiKey: "AIzaSy-IsiDenganApiKeyFirebaseAnda",
+  apiKey: "AIzaSyBAbD8GIT7daO66eTlv2D4rnYG0rk-0NY8",
   authDomain: "sinergiguru19.firebaseapp.com",
   projectId: "sinergiguru19",
   storageBucket: "sinergiguru19.appspot.com",
@@ -90,9 +90,9 @@ const App = () => {
     name: 'Guru Sinergi, S.Pd.', 
     nip: '-',
     photoUrl: '', // Tautan foto guru
-    school: 'Madrasah Digital Indonesia', 
+    school: 'Madrasah Tsanawiyah Negeri 1 Alor', 
     bio: 'Pendidik Profesional Abad 21',
-    location: 'Jakarta',
+    location: 'Alor',
     headmasterName: 'Kepala Madrasah, M.Pd.',
     headmasterNip: '-'
   });
@@ -921,4 +921,5 @@ const PrintTile = ({ title, icon, onClick, color }) => (
 
 
 export default App;
+
 
