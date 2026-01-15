@@ -25,6 +25,20 @@ const styles = {
   logoutBtn: { marginTop: '30px', padding: '10px', width: '100%', borderRadius: '10px', border: 'none', backgroundColor: '#e74c3c', color: '#fff' }
 };
 
+useEffect(() => {
+  // Mengecek sesi user yang sedang aktif saat ini
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setUser(session?.user ?? null);
+  });
+
+  // Mendengarkan perubahan status (Login/Logout) secara otomatis
+  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null);
+  });
+
+  return () => subscription.unsubscribe();
+}, []);
+
 // Di dalam return App() setelah user login:
 return (
   <div style={styles.container}>
@@ -253,6 +267,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
