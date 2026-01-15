@@ -6,6 +6,61 @@ const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Tambahkan objek gaya ini di luar fungsi App atau di bagian atas
+const styles = {
+  container: { padding: '20px', fontFamily: 'Arial, sans-serif', backgroundColor: '#f4f7f6', minHeight: '100vh' },
+  header: { textAlign: 'center', color: '#2c3e50', marginBottom: '30px' },
+  cardGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '15px' },
+  card: { 
+    backgroundColor: '#fff', 
+    padding: '20px', 
+    borderRadius: '15px', 
+    textAlign: 'center', 
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    cursor: 'pointer',
+    transition: 'transform 0.2s'
+  },
+  icon: { fontSize: '30px', marginBottom: '10px', display: 'block' },
+  label: { fontWeight: 'bold', color: '#34495e', fontSize: '14px' },
+  logoutBtn: { marginTop: '30px', padding: '10px', width: '100%', borderRadius: '10px', border: 'none', backgroundColor: '#e74c3c', color: '#fff' }
+};
+
+// Di dalam return App() setelah user login:
+return (
+  <div style={styles.container}>
+    <div style={styles.header}>
+      <h2>Halo, Bapak/Ibu Guru</h2>
+      <p style={{ fontSize: '14px', color: '#7f8c8d' }}>{user.email}</p>
+    </div>
+
+    <div style={styles.cardGrid}>
+      <div style={styles.card} onClick={() => alert("Membuka Absensi...")}>
+        <span style={styles.icon}>📋</span>
+        <span style={styles.label}>Absen Siswa</span>
+      </div>
+
+      <div style={styles.card} onClick={() => alert("Membuka Daftar Nilai...")}>
+        <span style={styles.icon}>📊</span>
+        <span style={styles.label}>Input Nilai</span>
+      </div>
+
+      <div style={styles.card} onClick={() => alert("Membuka Jadwal...")}>
+        <span style={styles.icon}>📅</span>
+        <span style={styles.label}>Jadwal Mengajar</span>
+      </div>
+
+      <div style={styles.card} onClick={() => alert("Membuka AI Helper...")}>
+        <span style={styles.icon}>🤖</span>
+        <span style={styles.label}>Asisten AI</span>
+      </div>
+    </div>
+
+    <button style={styles.logoutBtn} onClick={() => supabase.auth.signOut()}>
+      Keluar Aplikasi
+    </button>
+  </div>
+);
+
 // Variabel penenang ESLint yang Anda tanyakan sebelumnya
 const __app_id = 'sinergi-guru-v8';
 const __initial_auth_token = null;
@@ -79,3 +134,4 @@ function App() {
 }
 
 export default App;
+
