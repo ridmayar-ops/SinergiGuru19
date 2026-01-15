@@ -62,12 +62,12 @@ import {
 
 // --- Konfigurasi Firebase ---
 const firebaseConfig = {
-  apiKey: "temporary",
-  authDomain: "temporary",
-  projectId: "temporary",
-  storageBucket: "temporary",
-  messagingSenderId: "temporary",
-  appId: "temporary",
+  apiKey: "AIzaSy-IsiDenganApiKeyFirebaseAnda",
+  authDomain: "sinergiguru19.firebaseapp.com",
+  projectId: "sinergiguru19",
+  storageBucket: "sinergiguru19.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdefg"
  };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -921,3 +921,4 @@ const PrintTile = ({ title, icon, onClick, color }) => (
 
 
 export default App;
+
