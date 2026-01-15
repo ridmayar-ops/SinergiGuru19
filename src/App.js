@@ -35,7 +35,7 @@ return (
     {!user ? (
       /* Form Login Anda (tetap seperti sebelumnya) */
       <div style={{ textAlign: 'center' }}>
-        <h2>Login Sinergi Guru</h2>
+        <h2>Login SinergiGuru</h2>
         {/* ... isi form login ... */}
       </div>
     ) : (
@@ -208,20 +208,22 @@ function App() {
 
   // Fungsi Login
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  e.preventDefault();
+  setLoading(true);
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    if (error) {
-      alert("Login Gagal: " + error.message);
-    } else {
-      setUser(data.user);
-    }
-    setLoading(false);
-  };
+  if (error) {
+    alert("Login Gagal: " + error.message);
+  } else {
+    // BARIS INI WAJIB ADA AGAR HALAMAN BERUBAH
+    setUser(data.user); 
+    setView('dashboard'); // Memastikan tampilan langsung ke dashboard
+  }
+  setLoading(false);
+};
 
   // Fungsi Placeholder agar tidak error "not defined"
   const recordAttendance = () => { console.log("Fitur Absen Aktif"); };
@@ -251,5 +253,6 @@ function App() {
 }
 
 export default App;
+
 
 
